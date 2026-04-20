@@ -1,0 +1,31 @@
+project_id = "qr-que"
+
+[api]
+enabled = true
+port = 54331
+schemas = ["public"]
+extra_search_path = ["public","extensions"]
+
+[db]
+port = 54332
+shadow_port = 54320
+major_version = 15
+
+[analytics]
+port = 54337
+
+[studio]
+port = 54340
+
+[inbucket]
+port = 54344
+
+[auth]
+enabled = true
+site_url = "http://localhost:3001"
+additional_redirect_urls = ["http://localhost:3001/**"]
+
+[auth.email]
+enable_signup = true
+double_confirm_changes = false
+enable_confirmations = false
