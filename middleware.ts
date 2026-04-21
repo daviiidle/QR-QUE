@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type SetAllCookies } from "@supabase/ssr";
 
 export async function middleware(req: NextRequest) {
   if (!req.nextUrl.pathname.startsWith("/dashboard")) return NextResponse.next();
@@ -11,11 +11,11 @@ export async function middleware(req: NextRequest) {
     {
       cookies: {
         getAll: () => req.cookies.getAll(),
-        setAll: (all) => {
+        setAll: ((all) => {
           all.forEach(({ name, value, options }) =>
             res.cookies.set({ name, value, ...options })
           );
-        },
+        }) satisfies SetAllCookies,
       },
     }
   );

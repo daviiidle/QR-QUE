@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCart, type CartItem, lineTotalCents } from "@/stores/cart";
 import { formatMoney } from "@/lib/money";
 import type { Category, Product, Shop } from "@/types/domain";
+import { ProductImage } from "@/components/ProductImage";
 import { ProductSheet } from "./ProductSheet";
 
 export function MenuClient({
@@ -24,19 +25,50 @@ export function MenuClient({
   }, [shop.id, shop.slug, setShop]);
 
   const [active, setActive] = useState<Product | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const normalizedSearchQuery = searchQuery.trim().toLowerCase();
+
+  const categoryNames = useMemo(() => {
+    return new Map(categories.map((cat) => [cat.id, cat.name.toLowerCase()]));
+  }, [categories]);
+
+  const visibleProducts = useMemo(() => {
+    if (!normalizedSearchQuery) return products;
+
+    return products.filter((product) => {
+      const modifierText = product.modifier_groups
+        .flatMap((group) => [group.name, ...group.options.map((option) => option.name)])
+        .join(" ");
+      const categoryName = product.category_id
+        ? categoryNames.get(product.category_id) ?? ""
+        : "other";
+      const searchableText = [
+        product.name,
+        product.description ?? "",
+        categoryName,
+        modifierText,
+      ]
+        .join(" ")
+        .toLowerCase();
+
+      return searchableText.includes(normalizedSearchQuery);
+    });
+  }, [categoryNames, normalizedSearchQuery, products]);
 
   const byCategory = useMemo(() => {
     const map = new Map<string | null, Product[]>();
-    for (const p of products) {
+    for (const p of visibleProducts) {
       const arr = map.get(p.category_id) ?? [];
       arr.push(p);
       map.set(p.category_id, arr);
     }
     return map;
-  }, [products]);
+  }, [visibleProducts]);
 
   const cartCount = items.reduce((s, i) => s + i.quantity, 0);
   const cartTotal = items.reduce((s, i) => s + lineTotalCents(i), 0);
+  const hasResults = visibleProducts.length > 0;
 
   return (
     <main className="pb-32">
@@ -60,9 +92,71 @@ export function MenuClient({
             )}
           </Link>
         </div>
+        <div className="mx-auto max-w-2xl px-4 pb-3">
+          <label className="sr-only" htmlFor="menu-search">
+            Search menu
+          </label>
+          <div className="relative">
+            <svg
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-neutral-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z"
+              />
+            </svg>
+            <input
+              id="menu-search"
+              type="search"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search menu"
+              className="input h-11 pl-10 pr-10"
+              autoComplete="off"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery("")}
+                aria-label="Clear search"
+                className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full text-neutral-400 transition hover:bg-neutral-100 hover:text-neutral-700"
+              >
+                <svg
+                  aria-hidden="true"
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18 18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
+        </div>
       </header>
 
       <div className="mx-auto max-w-2xl px-4 pt-4">
+        {!hasResults && (
+          <div className="rounded-xl border border-neutral-200 bg-white p-6 text-center">
+            <div className="font-medium text-neutral-900">No menu items found</div>
+            <p className="mt-1 text-sm text-neutral-500">
+              Try another product, category, or topping.
+            </p>
+          </div>
+        )}
+
         {categories.map((cat) => {
           const list = byCategory.get(cat.id) ?? [];
           if (!list.length) return null;
@@ -75,9 +169,12 @@ export function MenuClient({
                     <button
                       type="button"
                       onClick={() => setActive(p)}
-                      className="flex w-full items-start justify-between gap-3 rounded-2xl border border-neutral-200 bg-white p-4 text-left transition hover:border-brand-300"
+                      className="flex w-full items-start gap-3 rounded-2xl border border-neutral-200 bg-white p-3 text-left transition hover:border-brand-300"
                     >
-                      <div>
+                      <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-neutral-100">
+                        <ProductImage name={p.name} imageUrl={p.image_url} />
+                      </div>
+                      <div className="min-w-0 flex-1">
                         <div className="font-medium">{p.name}</div>
                         {p.description && (
                           <div className="mt-1 text-sm text-neutral-500 line-clamp-2">
@@ -108,10 +205,13 @@ export function MenuClient({
                   <button
                     type="button"
                     onClick={() => setActive(p)}
-                    className="flex w-full items-start justify-between gap-3 rounded-2xl border border-neutral-200 bg-white p-4 text-left"
+                    className="flex w-full items-start gap-3 rounded-2xl border border-neutral-200 bg-white p-3 text-left"
                   >
-                    <div className="font-medium">{p.name}</div>
-                    <div className="font-semibold text-brand-700">
+                    <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-neutral-100">
+                      <ProductImage name={p.name} imageUrl={p.image_url} />
+                    </div>
+                    <div className="min-w-0 flex-1 font-medium">{p.name}</div>
+                    <div className="shrink-0 font-semibold text-brand-700">
                       {formatMoney(p.base_price_cents, shop.currency)}
                     </div>
                   </button>

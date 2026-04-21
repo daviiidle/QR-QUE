@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title">
+  <title>Mango green tea with mango cubes</title>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff7ed"/>
+      <stop offset="1" stop-color="#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="tea" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fdba74"/>
+      <stop offset=".56" stop-color="#facc15"/>
+      <stop offset="1" stop-color="#84cc16"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <circle cx="474" cy="148" r="88" fill="#fed7aa" opacity=".58"/>
+  <circle cx="145" cy="501" r="88" fill="#bbf7d0" opacity=".5"/>
+  <path d="M221 176h198l-26 343c-3 42-37 74-79 74s-76-32-79-74l-26-343z" fill="#fff" opacity=".52"/>
+  <path d="M232 212h176l-21 294c-3 35-32 62-67 62h-12c-35 0-64-27-67-62l-21-294z" fill="url(#tea)"/>
+  <ellipse cx="320" cy="212" rx="89" ry="18" fill="#ffedd5"/>
+  <g fill="#f97316">
+    <rect x="270" y="328" width="39" height="35" rx="9" transform="rotate(-14 289.5 345.5)"/>
+    <rect x="339" y="376" width="45" height="38" rx="10" transform="rotate(13 361.5 395)"/>
+    <rect x="290" y="438" width="37" height="33" rx="9" transform="rotate(10 308.5 454.5)"/>
+  </g>
+  <path d="M249 282c42 19 91 16 133-8" stroke="#fff" stroke-width="16" stroke-linecap="round" opacity=".34"/>
+  <path d="M252 146h147" stroke="#365314" stroke-width="18" stroke-linecap="round"/>
+  <path d="M384 62l-35 234" stroke="#65a30d" stroke-width="14" stroke-linecap="round"/>
+</svg>

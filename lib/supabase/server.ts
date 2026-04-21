@@ -1,4 +1,4 @@
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type SetAllCookies } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 export async function supabaseServer() {
@@ -9,13 +9,13 @@ export async function supabaseServer() {
     {
       cookies: {
         getAll: () => store.getAll(),
-        setAll: (all) => {
+        setAll: ((all) => {
           try {
             all.forEach(({ name, value, options }) => store.set(name, value, options));
           } catch {
             /* called from RSC — cookies are read-only there */
           }
-        },
+        }) satisfies SetAllCookies,
       },
     }
   );

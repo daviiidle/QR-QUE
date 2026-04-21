@@ -1,0 +1,72 @@
+- main [ref=e2]:
+  - generic [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e6]: Order from
+      - heading "Demo Bubble Tea" [level=1] [ref=e7]
+    - link [ref=e8] [cursor=pointer]:
+      - /url: /s/demo/cart
+      - img [ref=e9]
+  - generic [ref=e11]:
+    - generic [ref=e12]:
+      - heading "Classic Milk Tea" [level=2] [ref=e13]
+      - list [ref=e14]:
+        - listitem [ref=e15]:
+          - button "Classic Milk Tea Classic Milk Tea Black tea, milk, tapioca pearls $6.50 Customize" [ref=e16] [cursor=pointer]:
+            - img "Classic Milk Tea" [ref=e18]
+            - generic [ref=e19]:
+              - generic [ref=e20]: Classic Milk Tea
+              - generic [ref=e21]: Black tea, milk, tapioca pearls
+            - generic [ref=e22]:
+              - generic [ref=e23]: $6.50
+              - generic [ref=e24]: Customize
+        - listitem [ref=e25]:
+          - button "Taro Milk Tea Taro Milk Tea Creamy taro root and milk $7.50 Customize" [ref=e26] [cursor=pointer]:
+            - img "Taro Milk Tea" [ref=e28]
+            - generic [ref=e29]:
+              - generic [ref=e30]: Taro Milk Tea
+              - generic [ref=e31]: Creamy taro root and milk
+            - generic [ref=e32]:
+              - generic [ref=e33]: $7.50
+              - generic [ref=e34]: Customize
+        - listitem [ref=e35]:
+          - button "Brown Sugar Milk Brown Sugar Milk Brown sugar syrup, milk, pearls $8.00 Customize" [ref=e36] [cursor=pointer]:
+            - img "Brown Sugar Milk" [ref=e38]
+            - generic [ref=e39]:
+              - generic [ref=e40]: Brown Sugar Milk
+              - generic [ref=e41]: Brown sugar syrup, milk, pearls
+            - generic [ref=e42]:
+              - generic [ref=e43]: $8.00
+              - generic [ref=e44]: Customize
+    - generic [ref=e45]:
+      - heading "Fruit Tea" [level=2] [ref=e46]
+      - list [ref=e47]:
+        - listitem [ref=e48]:
+          - button "Passionfruit Green Tea Passionfruit Green Tea Passionfruit, green tea $7.00 Customize" [ref=e49] [cursor=pointer]:
+            - img "Passionfruit Green Tea" [ref=e51]
+            - generic [ref=e52]:
+              - generic [ref=e53]: Passionfruit Green Tea
+              - generic [ref=e54]: Passionfruit, green tea
+            - generic [ref=e55]:
+              - generic [ref=e56]: $7.00
+              - generic [ref=e57]: Customize
+        - listitem [ref=e58]:
+          - button "Mango Green Tea Mango Green Tea Fresh mango, green tea $7.00 Customize" [ref=e59] [cursor=pointer]:
+            - img "Mango Green Tea" [ref=e61]
+            - generic [ref=e62]:
+              - generic [ref=e63]: Mango Green Tea
+              - generic [ref=e64]: Fresh mango, green tea
+            - generic [ref=e65]:
+              - generic [ref=e66]: $7.00
+              - generic [ref=e67]: Customize
+    - generic [ref=e68]:
+      - heading "Specialty" [level=2] [ref=e69]
+      - list [ref=e70]:
+        - listitem [ref=e71]:
+          - button "Matcha Latte Matcha Latte Ceremonial matcha, milk $8.50 Customize" [ref=e72] [cursor=pointer]:
+            - img "Matcha Latte" [ref=e74]
+            - generic [ref=e75]:
+              - generic [ref=e76]: Matcha Latte
+              - generic [ref=e77]: Ceremonial matcha, milk
+            - generic [ref=e78]:
+              - generic [ref=e79]: $8.50
+              - generic [ref=e80]: Customize

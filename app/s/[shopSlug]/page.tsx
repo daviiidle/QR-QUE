@@ -37,6 +37,28 @@ export default async function MenuPage({ params }: PageProps) {
   const optionsByGroup = new Map<string, ModifierOption[]>();
   for (const o of optionsRaw) {
     const arr = optionsByGroup.get(o.group_id) ?? [];
+    const normalizedName = o.name.trim().toLowerCase();
+    const existingIndex = arr.findIndex(
+      (option) => option.name.trim().toLowerCase() === normalizedName
+    );
+
+    if (existingIndex >= 0) {
+      const existing = arr[existingIndex];
+      if (
+        o.sort_order < existing.sort_order ||
+        (o.sort_order === existing.sort_order && o.id < existing.id)
+      ) {
+        arr[existingIndex] = {
+          id: o.id,
+          name: o.name,
+          price_delta_cents: o.price_delta_cents,
+          is_active: o.is_active,
+          sort_order: o.sort_order,
+        };
+      }
+      optionsByGroup.set(o.group_id, arr);
+      continue;
+    }
     arr.push({
       id: o.id,
       name: o.name,

@@ -11,3 +11,4 @@ dist
 next-env.d.ts
 supabase/.branches
 supabase/.temp
+.claude/settings.local.json

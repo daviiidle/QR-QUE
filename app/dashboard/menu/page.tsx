@@ -63,6 +63,7 @@ export default async function MenuAdminPage() {
               ))}
             </select>
           </div>
+          <input name="image_file" type="file" accept="image/jpeg,image/png,image/webp,image/avif,image/gif" className="input" />
           <input name="image_url" placeholder="Image URL (optional)" className="input" />
           <input name="sort_order" type="number" defaultValue={products.length} className="input" />
           <button type="submit" className="btn-primary w-full">Add product</button>

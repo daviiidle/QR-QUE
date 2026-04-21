@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title">
+  <title>Taro milk tea with pearls</title>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f5f3ff"/>
+      <stop offset="1" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="tea" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#d8b4fe"/>
+      <stop offset=".62" stop-color="#b88ae8"/>
+      <stop offset="1" stop-color="#8b5fbf"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <circle cx="472" cy="157" r="92" fill="#c4b5fd" opacity=".48"/>
+  <circle cx="145" cy="500" r="88" fill="#bae6fd" opacity=".55"/>
+  <path d="M221 179h198l-26 344c-3 41-37 72-78 72s-75-31-78-72l-26-344z" fill="#fff" opacity=".58"/>
+  <path d="M231 214h178l-22 294c-2 35-32 62-67 62h-10c-35 0-65-27-67-62l-22-294z" fill="url(#tea)"/>
+  <ellipse cx="320" cy="214" rx="90" ry="18" fill="#eadcff"/>
+  <path d="M245 294c46 25 99 21 144-9" stroke="#fff" stroke-width="18" stroke-linecap="round" opacity=".34"/>
+  <path d="M267 372c29 14 67 11 99-8" stroke="#fff" stroke-width="13" stroke-linecap="round" opacity=".25"/>
+  <g fill="#271328">
+    <circle cx="279" cy="508" r="16"/>
+    <circle cx="319" cy="529" r="16"/>
+    <circle cx="358" cy="503" r="15"/>
+    <circle cx="296" cy="465" r="13"/>
+    <circle cx="345" cy="463" r="13"/>
+  </g>
+  <path d="M252 148h147" stroke="#312e81" stroke-width="18" stroke-linecap="round"/>
+  <path d="M385 62l-36 235" stroke="#5b21b6" stroke-width="14" stroke-linecap="round"/>
+</svg>

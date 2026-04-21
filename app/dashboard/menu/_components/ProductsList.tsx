@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { updateProduct, toggleProduct, attachModifierGroup, detachModifierGroup } from "@/actions/menu";
+import { formatMoney } from "@/lib/money";
+import { ProductImage } from "@/components/ProductImage";
 
 type Product = {
   id: string;
@@ -24,7 +26,7 @@ type Category = {
 type ModifierGroup = {
   id: string;
   name: string;
-  selection_type: "single" | "multiple";
+  selection_type: "single" | "multi";
   min_select: number;
   max_select: number;
   is_required: boolean;
@@ -39,23 +41,13 @@ type Props = {
 
 export function ProductsList({ products, categories, groups, pmg }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editForm, setEditForm] = useState<Partial<Product>>({});
 
   const handleEdit = (p: Product) => {
     setEditingId(p.id);
-    setEditForm(p);
-  };
-
-  const handleSave = async () => {
-    if (!editingId) return;
-    await updateProduct(editingId, editForm);
-    setEditingId(null);
-    setEditForm({});
   };
 
   const handleCancel = () => {
     setEditingId(null);
-    setEditForm({});
   };
 
   const handleToggle = async (id: string, isActive: boolean) => {
@@ -80,35 +72,85 @@ export function ProductsList({ products, categories, groups, pmg }: Props) {
         const groupsForProduct = attachedGroups(p.id);
         return (
           <div key={p.id} className="rounded-lg border border-neutral-100 p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
+            <div className="flex items-start gap-4">
+              <div className="h-20 w-20 shrink-0 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
+                <ProductImage name={p.name} imageUrl={p.image_url} />
+              </div>
+
+              <div className="min-w-0 flex-1">
                 {isEditing ? (
-                  <div className="space-y-2">
+                  <form
+                    action={async (formData) => {
+                      await updateProduct(p.id, formData);
+                      setEditingId(null);
+                    }}
+                    className="space-y-2"
+                  >
                     <input
+                      name="name"
                       className="input input-bordered w-full"
-                      value={editForm.name ?? ""}
-                      onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                      defaultValue={p.name}
                       placeholder="Name"
+                      required
+                      maxLength={100}
                     />
                     <textarea
+                      name="description"
                       className="input input-bordered w-full"
-                      value={editForm.description ?? ""}
-                      onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+                      defaultValue={p.description ?? ""}
                       placeholder="Description"
+                      maxLength={500}
+                    />
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      <input
+                        name="base_price_cents"
+                        type="number"
+                        min={0}
+                        className="input input-bordered w-full"
+                        defaultValue={p.base_price_cents}
+                        placeholder="Price (cents)"
+                        required
+                      />
+                      <select name="category_id" className="input input-bordered w-full" defaultValue={p.category_id ?? ""}>
+                        <option value="">No category</option>
+                        {categories.map((c) => (
+                          <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <input
+                      name="image_file"
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp,image/avif,image/gif"
+                      className="input input-bordered w-full"
                     />
                     <input
-                      type="number"
+                      name="image_url"
                       className="input input-bordered w-full"
-                      value={editForm.base_price_cents ?? 0}
-                      onChange={(e) => setEditForm({ ...editForm, base_price_cents: parseInt(e.target.value) })}
-                      placeholder="Price (cents)"
+                      defaultValue={p.image_url ?? ""}
+                      placeholder="Image URL, or leave empty to remove"
                     />
-                  </div>
+                    <input
+                      name="sort_order"
+                      type="number"
+                      min={0}
+                      className="input input-bordered w-full"
+                      defaultValue={p.sort_order}
+                      placeholder="Sort order"
+                    />
+                    <div className="flex items-center gap-2">
+                      <button type="submit" className="btn btn-sm btn-primary">Save</button>
+                      <button type="button" onClick={handleCancel} className="btn btn-sm btn-ghost">Cancel</button>
+                    </div>
+                  </form>
                 ) : (
                   <>
                     <h3 className="font-medium">{p.name}</h3>
                     <p className="text-sm text-neutral-500">{p.description}</p>
-                    <p className="text-sm font-medium">${(p.base_price_cents / 100).toFixed(2)}</p>
+                    <p className="text-sm font-medium">{formatMoney(p.base_price_cents)}</p>
+                    {p.image_url && (
+                      <p className="mt-1 truncate text-xs text-neutral-400">{p.image_url}</p>
+                    )}
                   </>
                 )}
               </div>
@@ -122,12 +164,7 @@ export function ProductsList({ products, categories, groups, pmg }: Props) {
                   />
                   <span className="text-sm">Active</span>
                 </label>
-                {isEditing ? (
-                  <>
-                    <button onClick={handleSave} className="btn btn-sm btn-primary">Save</button>
-                    <button onClick={handleCancel} className="btn btn-sm btn-ghost">Cancel</button>
-                  </>
-                ) : (
+                {!isEditing && (
                   <button onClick={() => handleEdit(p)} className="btn btn-sm btn-ghost">Edit</button>
                 )}
               </div>

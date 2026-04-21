@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title">
+  <title>Matcha latte with milk foam</title>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f0fdf4"/>
+      <stop offset="1" stop-color="#e0f2fe"/>
+    </linearGradient>
+    <linearGradient id="tea" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#dcfce7"/>
+      <stop offset=".48" stop-color="#86efac"/>
+      <stop offset="1" stop-color="#15803d"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="640" fill="url(#bg)"/>
+  <circle cx="478" cy="148" r="86" fill="#bbf7d0" opacity=".55"/>
+  <circle cx="148" cy="500" r="90" fill="#bae6fd" opacity=".5"/>
+  <path d="M219 176h202l-27 344c-3 42-38 74-80 74s-77-32-80-74l-27-344z" fill="#fff" opacity=".58"/>
+  <path d="M230 212h180l-22 296c-3 35-32 62-67 62h-14c-35 0-64-27-67-62l-22-296z" fill="url(#tea)"/>
+  <ellipse cx="320" cy="213" rx="91" ry="19" fill="#f7fee7"/>
+  <path d="M250 274c37 29 102 29 140 0" fill="none" stroke="#f7fee7" stroke-width="18" stroke-linecap="round" opacity=".64"/>
+  <path d="M278 319c28 17 61 17 86 0" fill="none" stroke="#f7fee7" stroke-width="13" stroke-linecap="round" opacity=".45"/>
+  <g fill="#14532d" opacity=".9">
+    <circle cx="284" cy="494" r="13"/>
+    <circle cx="322" cy="520" r="14"/>
+    <circle cx="358" cy="493" r="13"/>
+  </g>
+  <path d="M250 146h150" stroke="#14532d" stroke-width="18" stroke-linecap="round"/>
+  <path d="M384 62l-35 234" stroke="#16a34a" stroke-width="14" stroke-linecap="round"/>
+</svg>

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { formatMoney } from "@/lib/money";
 import type { Product } from "@/types/domain";
 import type { CartItem, CartModifier } from "@/stores/cart";
+import { ProductImage } from "@/components/ProductImage";
 
 export function ProductSheet({
   product,
@@ -91,7 +92,7 @@ export function ProductSheet({
     <div className="fixed inset-0 z-30 flex items-end justify-center bg-black/40 sm:items-center">
       <div className="flex max-h-[92dvh] w-full max-w-xl flex-col overflow-hidden rounded-t-2xl bg-white sm:rounded-2xl">
         <div className="flex items-start justify-between border-b border-neutral-100 p-4">
-          <div>
+          <div className="min-w-0 flex-1">
             <h3 className="text-lg font-semibold">{product.name}</h3>
             {product.description && (
               <p className="mt-1 text-sm text-neutral-500">{product.description}</p>
@@ -108,6 +109,10 @@ export function ProductSheet({
         </div>
 
         <div className="flex-1 overflow-y-auto p-4">
+          <div className="mb-4 aspect-[4/3] overflow-hidden rounded-xl bg-neutral-100">
+            <ProductImage name={product.name} imageUrl={product.image_url} />
+          </div>
+
           {product.modifier_groups.map((g) => (
             <div key={g.id} className="mb-5">
               <div className="mb-2 flex items-baseline justify-between">
